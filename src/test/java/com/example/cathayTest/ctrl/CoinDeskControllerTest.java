@@ -97,7 +97,7 @@ class CoinDeskControllerTest {
 
         // 2. 測試不存在資料
         mockMvc.perform(get("/coinDesk/currency/JPY"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -111,7 +111,7 @@ class CoinDeskControllerTest {
 
         // 2. 測試不存在資料
         mockMvc.perform(put("/coinDesk/update/EUR/歐元"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
