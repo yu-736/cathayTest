@@ -80,7 +80,7 @@ public class CoinDeskController {
     @PutMapping("/update/{currency}/{currencyNm}")
     public ResponseEntity<CurrencyEntity> doUpdCurrency(@PathVariable String currency, @PathVariable String currencyNm) {
         // 1. 檢核執行參數
-        if (StringUtils.isBlank(currencyNm)) {
+        if (StringUtils.isAnyBlank(currency, currencyNm)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
