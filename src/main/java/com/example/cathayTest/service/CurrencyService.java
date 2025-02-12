@@ -83,8 +83,8 @@ public class CurrencyService {
      * @return 新增結果
      */
     @Transactional
-    public CurrencyEntity addCurrency(CurrencyEntity currency) {
-        return currencyRepository.save(currency);
+    public CurrencyEntity addCurrency(CurrencyReqModelBean currency) {
+        return currencyRepository.save(new CurrencyEntity(currency.getCurrency(), currency.getCurrencyNm()));
     }
 
     /**

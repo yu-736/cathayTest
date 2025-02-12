@@ -46,7 +46,7 @@ public class CoinDeskController {
      * @return 新增結果
      */
     @PostMapping("/add")
-    public CurrencyEntity doAddCurrency(@Valid @RequestBody CurrencyEntity currency) {
+    public CurrencyEntity doAddCurrency(@Valid @RequestBody CurrencyReqModelBean currency) {
         return currencyService.addCurrency(currency);
     }
 
@@ -58,8 +58,12 @@ public class CoinDeskController {
     @GetMapping("/currency/{currency}")
     public ResponseEntity<CurrencyEntity> getCurrencyById(@PathVariable String currency) {
         //  1. 檢核執行參數
-        if (StringUtils.isBlank(currency) || !currencyService.isPresent(currency)) {
+        if (StringUtils.isBlank(currency)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        if(!currencyService.isPresent(currency)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         // 2. 查詢幣別資訊
@@ -76,8 +80,12 @@ public class CoinDeskController {
     @PutMapping("/update/{currency}/{currencyNm}")
     public ResponseEntity<CurrencyEntity> doUpdCurrency(@PathVariable String currency, @PathVariable String currencyNm) {
         // 1. 檢核執行參數
-        if (!currencyService.isPresent(currency) || StringUtils.isBlank(currencyNm)) {
+        if (StringUtils.isBlank(currencyNm)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        if(!currencyService.isPresent(currency)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         // 2. 執行更新幣別資料

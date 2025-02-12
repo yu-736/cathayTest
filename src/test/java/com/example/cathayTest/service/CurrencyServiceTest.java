@@ -66,7 +66,7 @@ class CurrencyServiceTest {
     @Test
     @Transactional
     void addCurrency() {
-        CurrencyEntity result = currencyService.addCurrency(new CurrencyEntity("EUR", "歐元"));
+        CurrencyEntity result = currencyService.addCurrency(new CurrencyReqModelBean("EUR", "歐元"));
 
         assertEquals("EUR", result.getCurrency());
         assertEquals("歐元", result.getCurrencyNm());
